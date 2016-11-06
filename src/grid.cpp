@@ -65,7 +65,7 @@ void Grid::output_grid() {
     }
 }
 /*
-*compare type Grid in parameter and this->Grid()
+*compare type point of Grid (parameter) and this->Grid()
 *iterate through v_num. Return false if grids aren't equal
 */
 bool Grid::is_equal(const Grid* rhs) {
