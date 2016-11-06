@@ -53,7 +53,21 @@ std::string Grid::can_move(unsigned r, unsigned c) {
     
     return "no move";
 }
-
+/*
+* output the values in the grid
+*/
+void Grid::output_grid() {
+    for (unsigned r = 0; r < v_num.size(); ++r) {
+        for (unsigned c = 0; c < v_num.at(r).size(); ++c) {
+            std::cout << v_num.at(r).at(c) << " ";
+        }
+        std::cout << std::endl;
+    }
+}
+/*
+*compare type Grid in parameter and this->Grid()
+*iterate through v_num. Return false if grids aren't equal
+*/
 bool Grid::is_equal(const Grid* rhs) {
 	unsigned row = this->v_num.size();
     unsigned col = this->v_num.at(row - 1).size();
@@ -67,13 +81,4 @@ bool Grid::is_equal(const Grid* rhs) {
     }
     
     return true;
-}
-
-void Grid::output_grid() {
-    for (unsigned r = 0; r < v_num.size(); ++r) {
-        for (unsigned c = 0; c < v_num.at(r).size(); ++c) {
-            std::cout << v_num.at(r).at(c) << " ";
-        }
-        std::cout << std::endl;
-    }
 }
