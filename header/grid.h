@@ -5,6 +5,8 @@
 #include <vector>
 #include <iostream>
 
+struct Algorithm;
+
 struct Grid {
 	//data values
 	std::vector< std::vector<unsigned> > v_num;
@@ -20,5 +22,10 @@ struct Grid {
 	void output_grid();
 	bool is_equal(const Grid*);
 	// bool operator==(const Grid*);
+	
+	//algorithms
+	void algorithm_val(Algorithm*);
+	unsigned sort();
+	
 };
 #endif
