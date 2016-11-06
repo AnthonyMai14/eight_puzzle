@@ -82,3 +82,7 @@ bool Grid::is_equal(const Grid* rhs) {
     
     return true;
 }
+
+void Grid::algorithm_val(Algorithm* function) {
+    function->compute(this);
+}
