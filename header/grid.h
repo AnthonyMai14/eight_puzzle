@@ -5,13 +5,12 @@
 #include <vector>
 #include <iostream>
 
-struct Algorithm;
-
 struct Grid {
 	//data values
 	std::vector< std::vector<unsigned> > v_num;
 	Grid* parent;
-	std::vector<Grid*> children;
+	unsigned g_n; //depth
+	unsigned f_n; //cost
 	
 	//constructors
 	Grid(const unsigned);
@@ -22,10 +21,10 @@ struct Grid {
 	void output_grid();
 	bool is_equal(const Grid*);
 	// bool operator==(const Grid*);
-	
-	//algorithms
-	void algorithm_val(Algorithm*);
-	unsigned sort();
+	unsigned get_g_n();
+	void set_g_n(Grid*);
+	unsigned get_f_n();
+	void set_f_n(unsigned);
 	
 };
 #endif

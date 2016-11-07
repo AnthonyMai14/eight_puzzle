@@ -5,7 +5,7 @@
 #include <stdlib.h> //atoi
 
 #include "../header/grid.h"
-//#include "puzzle.h"
+#include "../header/puzzle.h"
 
 const unsigned ROW = 3;
 
@@ -47,15 +47,25 @@ int main() {
                     ptr = strtok(NULL, " ");
                 }
             }
+            //ask for choice of algorithm
+            std::cout << "What is your choice of algorithm:"
+                        << "1. Uniform Cost Search" << std::endl
+                        << "2. A* with the Misplaced Tile heuristic" << std::endl
+                        << "A* with the Manhattan distance heuristic" << std::endl
+                        << std::endl;
+            getline(std::cin, user_input);
+            
             //parse and store unsigned vector
             //create Puzzle
-            Grid* g = new Grid(custom_input);
-            for (unsigned i = 0; i < ROW; ++i) {
-                for (unsigned j = 0; j < g->v_num.at(i).size(); ++j) {
-                    std::cout << g->v_num.at(i).at(j) << " ";
-                }
-                std::cout << std::endl;
-            }
+            Puzzle* p = new Puzzle(custom_input, ROW, user_input);
+            p->run();
+            // Grid* g = new Grid(custom_input);
+            // for (unsigned i = 0; i < ROW; ++i) {
+            //     for (unsigned j = 0; j < g->v_num.at(i).size(); ++j) {
+            //         std::cout << g->v_num.at(i).at(j) << " ";
+            //     }
+            //     std::cout << std::endl;
+            // }
         }
         else if (user_input != "e") {
             std::cout << "ERROR: Invalid input" << std::endl;

@@ -4,20 +4,32 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cmath>
+#include <cstdlib>
 
-
+#include "grid.h"
 
 class Puzzle {
 	private:
 		Grid* sol;
-		std::vector<*Grid> visit;
-	protected:
-		void create_tree(Grid*);
+		std::vector<Grid*> grid_visited;
+		std::vector<Grid*> check_grid;
+		unsigned max_check_grid_size;
+		std::string algorithm;
+		//helper functions
+		Grid* create_tree();
 		bool grid_exist(Grid*);
+		unsigned manhattan(Grid*, unsigned, unsigned);
+		void find_index(unsigned&, unsigned&);
+		void reorder_f_n();
+		//algorithm
+		unsigned misplaced_heuristic(Grid *g);
+		unsigned manhattan_heuristic(Grid *g);
 		
 		
 	public:
-		Puzzle(const unsigned);
-		Puzzle(std::vector< std::vector<unsigned> >&, const unsigned);
+		Puzzle(const unsigned, const std::string);
+		Puzzle(std::vector< std::vector<unsigned> >&, const unsigned, const std::string);
+		void run();
 };
 #endif

@@ -1,6 +1,9 @@
 #include "../header/grid.h"
 Grid::Grid(const unsigned row) {
 	parent = NULL;
+	g_n = 0;
+	f_n = 0;
+	
 	v_num.resize(row);
 	for(unsigned i = 0; i < row; ++i) {
 	    v_num.at(i).resize(row);
@@ -22,6 +25,8 @@ Grid::Grid(const unsigned row) {
 
 Grid::Grid(std::vector< std::vector<unsigned> > &v) {
     parent = NULL;
+    g_n = 0;
+    f_n = 0;
     this->v_num = v;
 }
 
@@ -82,7 +87,15 @@ bool Grid::is_equal(const Grid* rhs) {
     
     return true;
 }
-
-void Grid::algorithm_val(Algorithm* function) {
-    function->compute(this);
+unsigned Grid::get_g_n() {
+    return g_n;
+}
+void Grid::set_g_n(Grid* g) {
+    g_n = g->get_g_n() + 1;
+}
+unsigned Grid::get_f_n() {
+    return f_n;
+}
+void Grid::set_f_n(unsigned val) {
+    f_n = g_n + val;
 }
