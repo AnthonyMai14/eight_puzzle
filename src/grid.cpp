@@ -2,7 +2,7 @@
 Grid::Grid(const unsigned row) {
 	parent = NULL;
 	g_n = 0;
-	f_n = 0;
+	h_n = 0;
 	
 	v_num.resize(row);
 	for(unsigned i = 0; i < row; ++i) {
@@ -26,7 +26,7 @@ Grid::Grid(const unsigned row) {
 Grid::Grid(std::vector< std::vector<unsigned> > &v) {
     parent = NULL;
     g_n = 0;
-    f_n = 0;
+    h_n = 0;
     this->v_num = v;
 }
 
@@ -38,13 +38,13 @@ std::string Grid::can_move(unsigned r, unsigned c) {
         }
     }
     //right
-    if (r != v_num.size() - 1) {
+    if (c != v_num.size() - 1) {
         if (v_num.at(r).at(c + 1) == 0) {
             return "right";
         }
     }
     //down
-    if (c != v_num.at(r).size() - 1) {
+    if (r != v_num.at(r).size() - 1) {
         if (v_num.at(r + 1).at(c) == 0) {
             return "down";
         }
@@ -93,9 +93,12 @@ unsigned Grid::get_g_n() {
 void Grid::set_g_n(Grid* g) {
     g_n = g->get_g_n() + 1;
 }
-unsigned Grid::get_f_n() {
-    return f_n;
+unsigned Grid::get_h_n() {
+    return h_n;
 }
-void Grid::set_f_n(unsigned val) {
-    f_n = g_n + val;
+void Grid::set_h_n(unsigned val) {
+    h_n = val;
+}
+unsigned Grid::get_f_n() {
+    return g_n + h_n;
 }

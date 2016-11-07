@@ -10,7 +10,7 @@ struct Grid {
 	std::vector< std::vector<unsigned> > v_num;
 	Grid* parent;
 	unsigned g_n; //depth
-	unsigned f_n; //cost
+	unsigned h_n; //cost
 	
 	//constructors
 	Grid(const unsigned);
@@ -23,8 +23,9 @@ struct Grid {
 	// bool operator==(const Grid*);
 	unsigned get_g_n();
 	void set_g_n(Grid*);
+	unsigned get_h_n();
+	void set_h_n(unsigned);
 	unsigned get_f_n();
-	void set_f_n(unsigned);
 	
 };
 #endif

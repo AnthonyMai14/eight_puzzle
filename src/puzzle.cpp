@@ -21,10 +21,10 @@ void Puzzle::run() {
     
     std::cout << "Goal!!" << std::endl << std::endl
             << "To solve this problem the search algorithm expanded a total of "
-            << grid_visited.size()
-            << "The maximum number of nodes in the queue at any one time was"
-            << max_check_grid_size
-            << "The depth of the goal node was"
+            << grid_visited.size() << std::endl
+            << "The maximum number of nodes in the queue at any one time was "
+            << max_check_grid_size <<std::endl
+            << "The depth of the goal node was "
             << ans->get_g_n() << std::endl;
 }
 Grid* Puzzle::create_tree() {
@@ -35,11 +35,11 @@ Grid* Puzzle::create_tree() {
         max_check_grid_size = check_grid.size();
     }
     Grid* g = check_grid.back();
+    if (g->is_equal(sol)) return g;
     g->output_grid();
     std::cout << "Expanding this node..." << std::endl;
     check_grid.pop_back();
     //if goal, return node
-    if (g->is_equal(sol)) return g;
     
     unsigned children = 0;
     
@@ -48,16 +48,16 @@ Grid* Puzzle::create_tree() {
         for (unsigned c = 0; c < g->v_num.at(r).size(); ++c) {
             //find if at location, it can move
             std::string move = g->can_move(r, c);
-            
-            if (move == "no move") { continue; }
+            if (move == "no move") { 
+                continue;
+            }
             //make copy of 2D vector
             std::vector< std::vector<unsigned> > tmp_v(g->v_num.size());
             for (unsigned i = 0; i < g->v_num.size(); ++i) {
-                for (unsigned j = 0; i < g->v_num.at(i).size(); ++j) {
+                for (unsigned j = 0; j < g->v_num.at(i).size(); ++j) {
                     tmp_v.at(i).push_back(g->v_num.at(i).at(j));
                 }
             }
-            
             //find what ways are possible for that location
             if (move == "up") {
                 tmp_v.at(r - 1).at(c) = tmp_v.at(r).at(c);
@@ -86,14 +86,14 @@ Grid* Puzzle::create_tree() {
             //set depth
             g_new->set_g_n(g);
             //set cost depending on algorithm
-            if (algorithm == "2") {//manhattan_heuristic
-                g_new->set_f_n(manhattan_heuristic(g_new));
+            if (algorithm == "3") {//manhattan_heuristic
+                g_new->set_h_n(manhattan_heuristic(g_new));
             }
-            else if (algorithm == "1") {//misplaced_heuristic
-                g_new->set_f_n(misplaced_heuristic(g_new));
+            else if (algorithm == "2") {//misplaced_heuristic
+                g_new->set_h_n(misplaced_heuristic(g_new));
             }
             else {//if algorithm == 0
-                g_new->set_f_n(0);
+                g_new->set_h_n(0);
             }
             //set parent
             g_new->parent = g;
@@ -106,9 +106,10 @@ Grid* Puzzle::create_tree() {
     std::cout << "Best state to expand with a g(n) = "
                 << check_grid.back()->get_g_n()
                 << " and h(n) = "
-                << check_grid.back()->get_f_n()
-                << "is..." << std::endl;
+                << check_grid.back()->get_h_n()
+                << " is..." << std::endl;
     return create_tree();
+    return NULL;
 }
 bool Puzzle::grid_exist(Grid* g) {
     for (unsigned i = 0; i < grid_visited.size(); ++i) {
@@ -131,7 +132,8 @@ unsigned Puzzle::manhattan_heuristic(Grid* g) {
     unsigned count = 0;
     for (unsigned r = 0; r < g->v_num.size(); ++r) {
         for (unsigned c = 0; c < g->v_num.at(r).size(); ++c) {
-            if (g->v_num.at(r).at(c) != sol->v_num.at(r).at(c)) {
+            if ( (g->v_num.at(r).at(c) != 0) && 
+                (g->v_num.at(r).at(c) != sol->v_num.at(r).at(c))) {
                 //find where it is suppose to be
                 count += manhattan(g,r,c);
             }
@@ -159,13 +161,13 @@ void Puzzle::reorder_f_n() {
     //using insert sort
     unsigned index_largest = 0;
     
-    for (unsigned i = 0; i < check_grid.size(); ++ i) {
+    for (unsigned i = 0; i < check_grid.size(); ++i) {
         unsigned largest_f_n = check_grid.at(i)->get_f_n();
         
         for (unsigned j = i; j < check_grid.size(); ++j) {
             unsigned current = check_grid.at(j)->get_f_n();
             
-            if (current > largest_f_n) {
+            if (current >= largest_f_n) {
                 index_largest = j;
                 largest_f_n = current;
             }
