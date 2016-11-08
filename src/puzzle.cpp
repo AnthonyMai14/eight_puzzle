@@ -30,17 +30,20 @@ void Puzzle::run() {
 Grid* Puzzle::create_tree() {
     //if queue empty, return null
     if (check_grid.size() == 0) return NULL;
-    //dequeue
+    //see the largest the queue (vector) has been
     if (check_grid.size() > max_check_grid_size) {
         max_check_grid_size = check_grid.size();
     }
+    //access last element, in which should have the smal f(n) cost
     Grid* g = check_grid.back();
+    ////if goal, return node
     if (g->is_equal(sol)) return g;
+    
     g->output_grid();
     std::cout << "Expanding this node..." << std::endl;
+    //dequeue
     check_grid.pop_back();
-    //if goal, return node
-    
+    //variable to keep track of how many children
     unsigned children = 0;
     
     //create children and add to queue
@@ -85,6 +88,7 @@ Grid* Puzzle::create_tree() {
             ++children;
             //set depth
             g_new->set_g_n(g);
+            
             //set cost depending on algorithm
             if (algorithm == "3") {//manhattan_heuristic
                 g_new->set_h_n(manhattan_heuristic(g_new));
@@ -101,7 +105,7 @@ Grid* Puzzle::create_tree() {
             check_grid.push_back(g_new);
         }
     }
-    //reorder so that smallest f_n in back
+    //reorder so that smallest f(n) in back
     reorder_f_n();
     std::cout << "Best state to expand with a g(n) = "
                 << check_grid.back()->get_g_n()
@@ -109,7 +113,6 @@ Grid* Puzzle::create_tree() {
                 << check_grid.back()->get_h_n()
                 << " is..." << std::endl;
     return create_tree();
-    return NULL;
 }
 bool Puzzle::grid_exist(Grid* g) {
     for (unsigned i = 0; i < grid_visited.size(); ++i) {

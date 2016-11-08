@@ -9,8 +9,8 @@ struct Grid {
 	//data values
 	std::vector< std::vector<unsigned> > v_num;
 	Grid* parent;
-	unsigned g_n; //depth
-	unsigned h_n; //cost
+	unsigned g_n; //depth/cost
+	unsigned h_n; //distance to goal
 	
 	//constructors
 	Grid(const unsigned);

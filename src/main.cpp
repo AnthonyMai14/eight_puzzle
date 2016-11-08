@@ -22,6 +22,7 @@ int main() {
             << std::endl;
     
     getline(std::cin, user_input);
+    if (user_input != "1" && user_input != "2") return 1;
     
     //ask for choice of algorithm
         std::cout << std::endl << "What is your choice of algorithm:"
@@ -30,6 +31,10 @@ int main() {
                     << std::endl << "3. A* with the Manhattan distance heuristic"
                     << std::endl << std::endl;
         getline(std::cin, algorithm_input);
+        
+        if (algorithm_input != "1" && algorithm_input != "2" && algorithm_input != "3") {
+            return 1;
+        }
         
     if (user_input == "1") {
         //do default

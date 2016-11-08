@@ -9,8 +9,8 @@ Rule:
     2) In order to change the dimension of the matrix,
         need to change const ROW
     3) ROW >= 2;
-    4) The number of non-zero values present must be
+    4a) The number of non-zero values present must be
         ROW^2 - 1. (i.e. ROW = 3, therefore 3^2 - 1 = 8)
-    5) Number must be in numerical order from 1 to (ROW^2 -1)
-    6) There must be a blank spot. Blank spot will be represented
+    4b) Number must be in numerical order from 1 to (ROW^2 -1)
+    5) There must be a blank spot. Blank spot will be represented
         by the number '0'
