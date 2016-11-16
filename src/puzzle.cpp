@@ -25,7 +25,20 @@ void Puzzle::run() {
             << "The maximum number of nodes in the queue at any one time was "
             << max_check_grid_size <<std::endl
             << "The depth of the goal node was "
-            << ans->get_g_n() << std::endl;
+            << ans->get_g_n() << std::endl << std::endl;
+            
+    while (ans->parent != NULL) {
+        sol_trace.push(ans);
+        ans = ans->parent;
+    }
+    
+    std::cout << "The trace is:" << std::endl;
+    
+    while (!sol_trace.empty()) {
+        sol_trace.top()->output_grid();
+        std::cout << std::endl;
+        sol_trace.pop();
+    }
 }
 Grid* Puzzle::create_tree() {
     //if queue empty, return null

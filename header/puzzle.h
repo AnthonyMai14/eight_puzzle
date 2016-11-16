@@ -6,6 +6,7 @@
 #include <vector>
 #include <cmath>
 #include <cstdlib>
+#include <stack>
 
 #include "grid.h"
 
@@ -14,6 +15,7 @@ class Puzzle {
 		Grid* sol;
 		std::vector<Grid*> grid_visited;
 		std::vector<Grid*> check_grid;
+		std::stack<Grid*> sol_trace;
 		unsigned max_check_grid_size;
 		std::string algorithm;
 		//helper functions
