@@ -11,6 +11,7 @@ const unsigned ROW = 3;
 std::vector< std::vector<unsigned> > default_input(ROW);
 
 int main() {
+    std::cout << "---------------start program---------------" << std::endl;
     //opening statement
     std::cout << "Welcome to Anthony Mai's 8-puzzle solver" << std::endl; 
     std::string user_input = "";
@@ -78,6 +79,7 @@ int main() {
         //create Puzzle
         Puzzle* p = new Puzzle(custom_input, ROW, algorithm_input);
         p->run();
+        std::cout << "---------------end program---------------" << std::endl;
     }
     return 0;
 }
